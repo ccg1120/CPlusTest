@@ -25,6 +25,19 @@ CServer::CServer()
 	int iclintsize = sizeof(m_Clientaddr);
 	SOCKET m_client = accept(m_listen, (SOCKADDR*)&m_Clientaddr, &iclintsize);
 
+	char m_buffer[PACKET_SIZE] = {};
+	recv(m_client, m_buffer, PACKET_SIZE, 0);
+
+	string str(m_buffer);
+
+	cout << "Recv MSG : " << str << endl;
+
+
+	char m_msg[] = "Server Send";
+	send(m_client, m_msg, strlen(m_msg),0);
+
+	closesocket(m_client);
+	closesocket(m_listen);
 
 
 	WSACleanup();

@@ -4,8 +4,8 @@
 
 
 #define PORT	4322
-#define PACKKET_SIZE	1024
-
+#define PACKET_SIZE	1024
+#define SERVER_IP "192.168.50.201";
 
 class  CServer
 {
