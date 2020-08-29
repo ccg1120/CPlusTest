@@ -1,0 +1,6 @@
+﻿  CServer.cpp
+P:\Project\My\CPlusTest\Project\Project\CServer.cpp(69,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  main.cpp
+P:\Project\My\CPlusTest\Project\Project\main.cpp(16,6): warning C4101: 'a' :참조되지 않은 지역 변수입니다.
+  코드를 생성하고 있습니다...
+  Project.vcxproj -> P:\Project\My\CPlusTest\Project\Debug\Project.exe

@@ -1,0 +1,17 @@
+﻿  CServer.cpp
+P:\Project\My\CPlusTest\Project\Project\CServer.cpp(37,39): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  main.cpp
+P:\Project\My\CPlusTest\Project\Project\main.cpp(14,6): warning C4101: 'a' :참조되지 않은 지역 변수입니다.
+  코드를 생성하고 있습니다...
+CServer.obj : error LNK2019: __imp_accept"public: __cdecl CServer::CServer(void)" (??0CServer@@QEAA@XZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+CServer.obj : error LNK2019: __imp_bind"public: __cdecl CServer::CServer(void)" (??0CServer@@QEAA@XZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+CServer.obj : error LNK2019: __imp_closesocket"public: __cdecl CServer::CServer(void)" (??0CServer@@QEAA@XZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+CServer.obj : error LNK2019: __imp_htonl"public: __cdecl CServer::CServer(void)" (??0CServer@@QEAA@XZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+CServer.obj : error LNK2019: __imp_htons"public: __cdecl CServer::CServer(void)" (??0CServer@@QEAA@XZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+CServer.obj : error LNK2019: __imp_listen"public: __cdecl CServer::CServer(void)" (??0CServer@@QEAA@XZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+CServer.obj : error LNK2019: __imp_recv"public: __cdecl CServer::CServer(void)" (??0CServer@@QEAA@XZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+CServer.obj : error LNK2019: __imp_send"public: __cdecl CServer::CServer(void)" (??0CServer@@QEAA@XZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+CServer.obj : error LNK2019: __imp_socket"public: __cdecl CServer::CServer(void)" (??0CServer@@QEAA@XZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+CServer.obj : error LNK2019: __imp_WSAStartup"public: __cdecl CServer::CServer(void)" (??0CServer@@QEAA@XZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+CServer.obj : error LNK2019: __imp_WSACleanup"public: __cdecl CServer::CServer(void)" (??0CServer@@QEAA@XZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+P:\Project\My\CPlusTest\Project\x64\Debug\Project.exe : fatal error LNK1120: 11개의 확인할 수 없는 외부 참조입니다.
