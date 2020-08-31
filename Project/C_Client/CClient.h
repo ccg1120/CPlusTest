@@ -5,22 +5,34 @@
 #include <windows.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
-#include <stdio.h>
+
+#include <signal.h>
+
 #include <iostream>
+#include <stdio.h>
+#include <string>
+
+
 #pragma comment(lib, "ws2_32.lib")
 
-#define PORT	7272
 
 #define PACKET_SIZE	1024
-#define SERVER_IP "127.0.0.1";
+
+
+using namespace std;
 
 class CClient
 {
 public:
+	void Connect(const char* ip, const uint16_t port);
+	void DisConnect();
+	bool Send(string msg);
+
 	CClient();
 	~CClient();
 private:
-
+	SOCKET m_socket;
+	int  m_WSAError;
 };
 
 

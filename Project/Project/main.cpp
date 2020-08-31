@@ -5,15 +5,21 @@ using namespace std;
 
 int main()
 {
+	int m_MaxUser = 2;
 	//printf("TEST");
 
 	cout << "START SERVER" << endl;
 
 	CServer server;
-	cout << "Connect SERVER" << endl;
-	server.StartConnect();
-	
-	int a;
+	const char* ip = SERVER_IP;
+	const uint16_t port = (uint16_t)PORT;
+	server.Listen(ip, port);
+
+	for (size_t i = 0; i < m_MaxUser; i++)
+	{
+		server.Accept();
+	}
+	server.ShowData();
 
 	return 0;
 }
