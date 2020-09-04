@@ -38,7 +38,8 @@ public:
 	void Listen(const char* ip, const uint16_t port);
 	void Accept();
 	void DisConnect();
-	void static ClientWorkThread(Client client);
+	void static ClientWorkThread(Client* client);
+	void static StaticTest(int );
 	void ShowData();
 
 	string GetAcceptIP(const SOCKET& acceptsocket);

@@ -47,13 +47,15 @@ public:
 		
 	
 };
-
+void TestThreadMember(int num)
+{
+	cout << "Thread Test : " << num << endl;
+}
 int main()
 {
 	int m_MaxUser = 2;
 
 	cout << "START SERVER" << endl;
-	
 
 	CServer server;
 	const char* ip = SERVER_IP;

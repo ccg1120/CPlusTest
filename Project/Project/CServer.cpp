@@ -1,7 +1,10 @@
 #include "CServer.h"
 
 bool CServer::m_WorkingSignal;
-
+void static TEST22()
+{
+	cout << "TEST..." << endl;
+}
 void CServer::Listen(const char* ip, const uint16_t port)
 {
 	m_Socket = WSASocket(AF_INET, SOCK_STREAM, 0, NULL, 0, WSA_FLAG_OVERLAPPED);
@@ -26,56 +29,67 @@ void CServer::Listen(const char* ip, const uint16_t port)
 
 	listen(m_Socket, 5000);
 	std::cout << "SERVER Listen" << std::endl;
-	//m_WorkingSignal = true;
-	//m_ListenThread = thread(this->Accept);
+	m_WorkingSignal = true;
+	m_ListenThread = thread(
+		[&]() {
+		Accept();
+		});
+	m_ListenThread.join();
+
 }
 
 void CServer::Accept()
 {
-	//while (m_WorkingSignal)
-	//{
-	//	SOCKET acceptsocket = accept(m_Socket, NULL, 0);
-	//	if (acceptsocket == -1)
-	//	{
-	//		std::cout << "Accept Socket Error" << std::endl;
-	//		return;
-	//	}
-	//	m_ClientCount++;
+	std::cout << "Accept Start !!" << std::endl;
+	while (m_WorkingSignal)
+	{
+		SOCKET acceptsocket = accept(m_Socket, NULL, 0);
+		if (acceptsocket == -1)
+		{
+			std::cout << "Accept Socket Error" << std::endl;
+			return;
+		}
+		m_ClientCount++;
 
-	//	std::cout << "Accept !!!" << std::endl;
-	//	Client* client = new Client;
-	//	client->m_Socket = acceptsocket;
-	//	client->num = m_ClientCount;
-	//	//client->m_Thread = thread(ClientWorkThread, client);
-
-	//	m_AcceptSocketList.push_back(client);
-	//}	
+		std::cout << "Accept !!!" << std::endl;
+		Client* client = new  Client;
+		client->m_Socket = acceptsocket;
+		client->num = m_ClientCount;
+		client->m_Thread = thread(ClientWorkThread, client);
+		
+		//client->m_Thread.join();
+		m_AcceptSocketList.push_back(client);
+	}	
 }
 
-void  CServer::ClientWorkThread(Client client)
+void CServer::StaticTest(int num)
+{
+	cout << "StaticTest : " << num << endl;
+
+}
+void  CServer::ClientWorkThread(Client* client)
 {
 	char m_receiveBuffer[MaxReceiveLength];
-	m_test = 2;
 
 	while (m_WorkingSignal)
 	{
 		string receivedData;
-		int result = (int)recv(client.m_Socket, m_receiveBuffer, MaxReceiveLength, 0);
+		int result = (int)recv(client->m_Socket, m_receiveBuffer, MaxReceiveLength, 0);
 
 		if (result == 0)
 		{
-			cout << client.num << "Connection closed.\n";
+			cout << client->num << "Connection closed.\n";
 			break;
 		}
 		else if (result < 0)
 		{
-			cout << client.num << " : result zero.\n";
+			cout << client->num << " : result zero.\n";
 			break;
 		}
 
-		cout << client.num << " : Received = " << m_receiveBuffer << endl;
+		cout << client->num << " : Received = " << m_receiveBuffer << endl;
 	}
-	closesocket(client.m_Socket);
+	closesocket(client->m_Socket);
 }
 string CServer::GetAcceptIP(const SOCKET& acceptsocket)
 {
@@ -92,7 +106,8 @@ string CServer::GetAcceptIP(const SOCKET& acceptsocket)
 	inet_ntop(AF_INET, &ret.sin_addr, addrString, sizeof(addrString) - 1);
 
 	char finalString[1000];
-	sprintf(finalString, "%s:%d", addrString, htons(ret.sin_port));
+	//sprintf(finalString, "%s:%d", addrString, htons(ret.sin_port));
+	sprintf_s(finalString, "%s:%d", addrString, htons(ret.sin_port));
 	std::cout << "Socket from  : " << finalString << std::endl;
 	string result = finalString;
 
@@ -144,8 +159,6 @@ CServer::CServer()
 	WORD wVersionRequested;
 	WSADATA wsaData;
 	int err = 0;
-	
-	m_test = 2;
 
 	wVersionRequested = MAKEWORD(2, 2);
 	err = WSAStartup(wVersionRequested, &wsaData);
