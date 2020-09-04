@@ -10,6 +10,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <vector>
+#include <thread>
 
 // Need to link with Ws2_32.lib
 #pragma comment(lib, "ws2_32.lib") //없으면 외부 참조 에러 발생됨
@@ -20,33 +21,37 @@
 
 using namespace std;
 
-struct Client;
-
-	
-class  CServer
-{
-public:
-	void Listen(const char* ip, const uint16_t port);
-	void Accept();
-	void DisConnect();
-	void ClientWorkThread(Client& client);
-	void ShowData();
-	string GetAcceptIP(const SOCKET& acceptsocket);
-
-	 CServer();
-	~CServer();
-private:
-	static const int MaxReceiveLength = 8192;
-	bool m_WorkingSignal = false;
-	SOCKET m_Socket;
-	vector<Client> m_AcceptSocketList;
-	thread* m_ListenThread;
-	int m_ClientCount = 0;
-};
-
 struct Client
 {
 	int num;
 	thread m_Thread;
 	SOCKET m_Socket;
 };
+
+
+class  CServer
+{
+public:
+	static bool m_WorkingSignal;
+
+
+	void Listen(const char* ip, const uint16_t port);
+	void Accept();
+	void DisConnect();
+	void static ClientWorkThread(Client client);
+	void ShowData();
+
+	string GetAcceptIP(const SOCKET& acceptsocket);
+	
+
+	 CServer();
+	~CServer();
+private:
+	static const int MaxReceiveLength = 8192;
+	
+	SOCKET m_Socket;
+	vector<Client*> m_AcceptSocketList;
+	thread m_ListenThread;
+	int m_ClientCount = 0;
+};
+

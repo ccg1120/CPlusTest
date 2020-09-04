@@ -1,3 +1,8 @@
 ﻿  CServer.cpp
-P:\Project\My\CPlusTest\Project\Project\CServer.cpp(57,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  Project.vcxproj -> P:\Project\My\CPlusTest\Project\Debug\Project.exe
+P:\Project\My\CPlusTest\Project\Project\CServer.h(31,21): error C2653: 'CServer': 클래스 또는 네임스페이스 이름이 아닙니다.
+P:\Project\My\CPlusTest\Project\Project\CServer.h(32,30): error C2653: 'CServer': 클래스 또는 네임스페이스 이름이 아닙니다.
+P:\Project\My\CPlusTest\Project\Project\CServer.cpp(96,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  main.cpp
+P:\Project\My\CPlusTest\Project\Project\CServer.h(31,21): error C2653: 'CServer': 클래스 또는 네임스페이스 이름이 아닙니다.
+P:\Project\My\CPlusTest\Project\Project\CServer.h(32,30): error C2653: 'CServer': 클래스 또는 네임스페이스 이름이 아닙니다.
+  코드를 생성하고 있습니다...
