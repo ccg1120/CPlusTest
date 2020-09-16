@@ -86,6 +86,8 @@ void  CServer::ClientWorkThread(Client* client)
 			cout << client->num << " : result zero.\n";
 			break;
 		}
+		
+		//string str = (string)client->num + "Received =" + m_receiveBuffer;
 
 		cout << client->num << " : Received = " << m_receiveBuffer << endl;
 	}

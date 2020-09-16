@@ -7,7 +7,7 @@
 #include <ws2tcpip.h>
 
 #include <signal.h>
-
+#include <vector>
 #include <iostream>
 #include <stdio.h>
 #include <string>
@@ -27,10 +27,13 @@ public:
 	void Connect(const char* ip, const uint16_t port);
 	void DisConnect();
 	bool Send(string msg);
+	bool Recive();
 
 	CClient();
 	~CClient();
 private:
+	static const int MaxReceiveLength = 8192;
+	vector<string> m_STR;
 	SOCKET m_socket;
 	int  m_WSAError;
 };

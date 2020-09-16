@@ -47,10 +47,30 @@ void CClient::DisConnect()
 bool CClient::Send(string msg)
 {
 	int result = send(m_socket, msg.c_str(), msg.size() + 1, 0);
-
+	
 	if (result > 0)
 	{
 		return true;
 	}
 	return false;
+}
+bool CClient::Recive()
+{
+	char m_receiveBuffer[MaxReceiveLength];
+	int result = recv(m_socket, m_receiveBuffer, MaxReceiveLength, 0);
+	if (result == 0)
+	{
+		cout <<"Connection closed.\n";
+		return false;
+	}
+	else if (result < 0)
+	{
+		cout << " : result zero.\n";
+		return false;
+	}
+	string str = m_receiveBuffer;
+	m_STR.push_back(str);
+	cout << "MSG: " << m_receiveBuffer << endl;
+	system("cls");
+	return true;
 }

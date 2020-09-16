@@ -10,7 +10,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <vector>
-#include <thread>
+#include <thread>z
 
 // Need to link with Ws2_32.lib
 #pragma comment(lib, "ws2_32.lib") //없으면 외부 참조 에러 발생됨
@@ -44,7 +44,6 @@ public:
 
 	string GetAcceptIP(const SOCKET& acceptsocket);
 	
-
 	 CServer();
 	~CServer();
 private:
@@ -52,6 +51,8 @@ private:
 	
 	SOCKET m_Socket;
 	vector<Client*> m_AcceptSocketList;
+	vector<string> m_StringList;
+
 	thread m_ListenThread;
 	int m_ClientCount = 0;
 };

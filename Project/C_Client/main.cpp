@@ -1,4 +1,5 @@
 #include "CClient.h"
+#include <thread>
 
 int ShowMenu();
 
@@ -8,6 +9,7 @@ int ShowMenu();
 bool start = true;
 
 void ProcessSignalAction(int );
+void ReciveThread(CClient client);
 
 int main()
 {
@@ -22,6 +24,8 @@ int main()
 	client.Connect(ip, port);
 	string str = "";
 
+	thread tt = thread(ReciveThread, client);
+
 	while (start)
 	{
 		cin >> str;
@@ -32,6 +36,15 @@ int main()
 
 	return 0;
 }
+void ReciveThread(CClient client)
+{
+	cout << "Start :ReciveThread" << endl;
+	while (start)
+	{
+		bool result = client.Recive();
+	}
+}
+
 void ProcessSignalAction(int sig_number)
 {
 	if (sig_number == SIGINT)
