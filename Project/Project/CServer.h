@@ -10,7 +10,9 @@
 #include <iostream>
 #include <stdio.h>
 #include <vector>
-#include <thread>z
+#include <thread>
+#include "UserInfo.h"
+
 
 // Need to link with Ws2_32.lib
 #pragma comment(lib, "ws2_32.lib") //없으면 외부 참조 에러 발생됨
@@ -34,24 +36,26 @@ class  CServer
 public:
 	static bool m_WorkingSignal;
 
-
+	void static ClientWorkThread(Client* client);
+	void static StaticTest(int);
+	bool Login(string name, string ip);
+	bool DB_FindUser(string name, UserInfo* user);
 	void Listen(const char* ip, const uint16_t port);
 	void Accept();
 	void DisConnect();
-	void static ClientWorkThread(Client* client);
-	void static StaticTest(int );
 	void ShowData();
 
 	string GetAcceptIP(const SOCKET& acceptsocket);
 	
-	 CServer();
+	CServer();
 	~CServer();
 private:
 	static const int MaxReceiveLength = 8192;
-	
 	SOCKET m_Socket;
+
 	vector<Client*> m_AcceptSocketList;
 	vector<string> m_StringList;
+	vector<UserInfo*> m_UserList;
 
 	thread m_ListenThread;
 	int m_ClientCount = 0;

@@ -139,11 +139,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CServer.h" />
+    <ClInclude Include="LoginInfo.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="MessageInfo.h" />
+    <ClInclude Include="UserInfo.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CServer.cpp" />
+    <ClCompile Include="LoginInfo.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MessageInfo.cpp" />
+    <ClCompile Include="UserInfo.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

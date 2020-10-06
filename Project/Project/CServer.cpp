@@ -67,6 +67,35 @@ void CServer::StaticTest(int num)
 	cout << "StaticTest : " << num << endl;
 
 }
+
+bool CServer::Login(string name, string ip)
+{
+	//TODO :: Find User from DB
+	//TODO :: Check New User
+	//
+	bool newuser = false;
+	//string local = FindLocalByIP(ip);
+	UserInfo* user;
+	newuser = DB_FindUser(name, user);
+	if (newuser)
+	{
+		user = new UserInfo(name, false, ip ,"Location Test");
+	}
+	
+	//TODO :: watch out CriticalSection
+	m_UserList.push_back(user);
+
+	return true;
+}
+
+bool CServer::DB_FindUser(string name, UserInfo* user)
+{
+	bool result = false;
+
+
+	return result;
+}
+
 void  CServer::ClientWorkThread(Client* client)
 {
 	char m_receiveBuffer[MaxReceiveLength];
