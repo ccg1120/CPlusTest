@@ -1,6 +1,7 @@
 #include "CServer.h"
 
 bool CServer::m_WorkingSignal;
+vector<Client*> CServer::m_AcceptSocketList;
 
 //SHORT   gHeight = 80;
 void static TEST22()
@@ -122,6 +123,16 @@ void  CServer::ClientWorkThread(Client* client)
 		//string str = (string)client->num + "Received =" + m_receiveBuffer;
 
 		cout << client->num << " : Received = " << m_receiveBuffer << endl;
+		
+		size_t size = m_AcceptSocketList.size();
+		for (size_t i = 0; i < size; i++)
+		{
+			if (client->m_Socket != m_AcceptSocketList[i]->m_Socket)
+			{
+				int send_result = send(m_AcceptSocketList[i]->m_Socket, m_receiveBuffer, result, 0);
+				cout << "Send result " << send_result << endl;
+			}
+		}
 	}
 	closesocket(client->m_Socket);
 }

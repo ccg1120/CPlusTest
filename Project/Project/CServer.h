@@ -108,7 +108,7 @@ private:
 	static const int MaxReceiveLength = 8192;
 	SOCKET m_Socket;
 
-	vector<Client*> m_AcceptSocketList;
+	static vector<Client*> m_AcceptSocketList;
 	vector<string> m_StringList;
 	vector<UserInfo*> m_UserList;
 

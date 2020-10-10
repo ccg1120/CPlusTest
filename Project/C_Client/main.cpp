@@ -23,7 +23,7 @@ int main()
 
 	client.Connect(ip, port);
 	string str = "";
-
+	cout << "START " << endl;
 	thread tt = thread(ReciveThread, client);
 
 	while (start)

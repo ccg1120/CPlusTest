@@ -71,6 +71,6 @@ bool CClient::Recive()
 	string str = m_receiveBuffer;
 	m_STR.push_back(str);
 	cout << "MSG: " << m_receiveBuffer << endl;
-	system("cls");
+	//system("cls");
 	return true;
 }
