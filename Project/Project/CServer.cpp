@@ -3,11 +3,6 @@
 bool CServer::m_WorkingSignal;
 vector<Client*> CServer::m_AcceptSocketList;
 
-//SHORT   gHeight = 80;
-void static TEST22()
-{
-	cout << "TEST..." << endl;
-}
 void CServer::Listen(const char* ip, const uint16_t port)
 {
 	m_Socket = WSASocket(AF_INET, SOCK_STREAM, 0, NULL, 0, WSA_FLAG_OVERLAPPED);

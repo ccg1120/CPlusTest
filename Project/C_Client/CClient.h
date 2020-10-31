@@ -28,7 +28,7 @@ public:
 	void DisConnect();
 	bool Send(string msg);
 	bool Recive();
-
+	void ShowConversation();
 	CClient();
 	~CClient();
 private:

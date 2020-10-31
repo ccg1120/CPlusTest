@@ -70,7 +70,16 @@ bool CClient::Recive()
 	}
 	string str = m_receiveBuffer;
 	m_STR.push_back(str);
-	cout << "MSG: " << m_receiveBuffer << endl;
-	//system("cls");
+	//cout << "MSG: " << m_receiveBuffer << endl;
 	return true;
+}
+
+void CClient::ShowConversation()
+{
+	size_t length = m_STR.size();
+	
+	for (size_t i = 0; i < length; i++)
+	{
+		cout << m_STR[i] << endl;
+	}
 }

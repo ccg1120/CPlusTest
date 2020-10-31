@@ -10,7 +10,7 @@ bool start = true;
 
 void ProcessSignalAction(int );
 void ReciveThread(CClient client);
-
+bool m_Refresh = false;
 int main()
 {
 	
@@ -25,9 +25,20 @@ int main()
 	string str = "";
 	cout << "START " << endl;
 	thread tt = thread(ReciveThread, client);
-
+	
+	
 	while (start)
 	{
+		if (m_Refresh)
+		{
+			system("cls");
+			cout << "Conversation" << endl;
+			client.ShowConversation();
+			cout << "----------------------------------------" << endl;
+			m_Refresh = false;
+		}
+		
+		cout << "Message : " << endl;
 		cin >> str;
 		client.Send(str);
 	}
@@ -42,6 +53,11 @@ void ReciveThread(CClient client)
 	while (start)
 	{
 		bool result = client.Recive();
+
+		if (result)
+		{
+			m_Refresh = true;
+		}
 	}
 }
 

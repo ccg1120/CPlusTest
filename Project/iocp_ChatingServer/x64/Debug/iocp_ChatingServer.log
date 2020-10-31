@@ -1,0 +1,5 @@
+﻿  iocp_Server.cpp
+C:\Project\Study\CPlusTest\Project\iocp_ChatingServer\iocp_Server.cpp(26,97): warning C4312: '형식 캐스트': 'int'에서 더 큰 'ULONG *'(으)로의 변환입니다.
+  main.cpp
+  코드를 생성하고 있습니다...
+  iocp_ChatingServer.vcxproj -> C:\Project\Study\CPlusTest\Project\x64\Debug\iocp_ChatingServer.exe
