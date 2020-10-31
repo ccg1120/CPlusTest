@@ -1,5 +1,6 @@
 ﻿  iocp_Server.cpp
-C:\Project\Study\CPlusTest\Project\iocp_ChatingServer\iocp_Server.cpp(26,97): warning C4312: '형식 캐스트': 'int'에서 더 큰 'ULONG *'(으)로의 변환입니다.
+P:\Project\My\CPlusTest\Project\iocp_ChatingServer\iocp_Server.cpp(70,98): warning C4312: '형식 캐스트': 'int'에서 더 큰 'ULONG *'(으)로의 변환입니다.
   main.cpp
   코드를 생성하고 있습니다...
-  iocp_ChatingServer.vcxproj -> C:\Project\Study\CPlusTest\Project\x64\Debug\iocp_ChatingServer.exe
+iocp_Server.obj : error LNK2019: GetAcceptExSockaddrs"public: void __cdecl iocp_Server::Worker(void)" (?Worker@iocp_Server@@QEAAXXZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+P:\Project\My\CPlusTest\Project\x64\Debug\iocp_ChatingServer.exe : fatal error LNK1120: 1개의 확인할 수 없는 외부 참조입니다.
