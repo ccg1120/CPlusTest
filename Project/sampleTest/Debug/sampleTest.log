@@ -1,0 +1,8 @@
+﻿  AcceptExTest.cpp
+C:\Project\Study\CPlusTest\Project\sampleTest\AcceptExTest.cpp(97,13): warning C4477: 'wprintf' : 서식 문자열 '%s'에 'wchar_t *' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 'char *'입니다.
+C:\Project\Study\CPlusTest\Project\sampleTest\AcceptExTest.cpp(97,13): message : 서식 문자열에서 '%hs'을(를) 사용하는 것이 좋습니다.
+C:\Project\Study\CPlusTest\Project\sampleTest\AcceptExTest.cpp(97,13): message : 서식 문자열에서 '%Ts'을(를) 사용하는 것이 좋습니다.
+C:\Project\Study\CPlusTest\Project\sampleTest\AcceptExTest.cpp(97,13): message : 이 경고는 Visual C++에서 사용되는 표준이 아닌 의미 체계를 기반으로 합니다.
+C:\Project\Study\CPlusTest\Project\sampleTest\AcceptExTest.cpp(73,16): error C4996: 'gethostbyname': Use getaddrinfo() or GetAddrInfoW() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+C:\Project\Study\CPlusTest\Project\sampleTest\AcceptExTest.cpp(74,10): error C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+C:\Project\Study\CPlusTest\Project\sampleTest\AcceptExTest.cpp(77,31): error C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings

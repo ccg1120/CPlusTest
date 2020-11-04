@@ -1,2 +1,5 @@
 ﻿  iocp_Server.cpp
-  iocp_ChatingServer.vcxproj -> P:\Project\My\CPlusTest\Project\Debug\iocp_ChatingServer.exe
+C:\Project\Study\CPlusTest\Project\iocp_ChatingServer\iocp_Server.cpp(153,24): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  main.cpp
+  코드를 생성하고 있습니다...
+  iocp_ChatingServer.vcxproj -> C:\Project\Study\CPlusTest\Project\Debug\iocp_ChatingServer.exe

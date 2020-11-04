@@ -1,4 +1,4 @@
-
+#pragma once
 #pragma comment(lib, "ws2_32.lib") //없으면 외부 참조 에러 발생됨
 #pragma comment(lib,"mswsock.lib")
 
@@ -23,15 +23,17 @@ class iocp_Server
 
 public:
 	static const int MaxWaitEventTime = 100;
-	static const int MaxEventCount = 100;
+	static const int MaxEventCount = 10;
 	static const int MaxReceiveLength = 8192;
 
-	iocp_Server(const char* ip, const int port, int num);
+	iocp_Server(const char* ip, const uint16_t port, int num);
 	~iocp_Server();
 
 	void AddSocket(SOCKET& socket, void* userPtr);
 	void WaitEvent(int timeouts);
+	void WaitEvent(OVERLAPPED_ENTRY* array, int timeouts);
 	void Worker();
+	void SetWorkingState(bool ison);
 
 	OVERLAPPED_ENTRY m_Events[MaxEventCount];
 	int m_EventsCount = 0;
@@ -41,12 +43,13 @@ private:
 	SOCKET m_ListenSocket;
 	SOCKET accept;
 
+
 	int m_ThreadCount; //스레드 수가 왜 상관이 있는거지?
 
 	LPFN_ACCEPTEX AcceptEx = NULL;
 	WSAOVERLAPPED m_readOverlappedStruct;
 
-	bool m_WorkingState = false;
+	bool m_WorkingState = true;
 
 	vector<SOCKET> m_RemoteClients;
 
