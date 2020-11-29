@@ -12,6 +12,7 @@
 #include <vector>
 // Need to link with Ws2_32.lib
 #pragma comment(lib, "Ws2_32.lib")
+#pragma comment(lib, "mswsock.lib")
 
 volatile bool m_Working = true;
 
@@ -29,6 +30,7 @@ int main()
     LPFN_ACCEPTEX lpfnAcceptEx = NULL;
     GUID GuidAcceptEx = WSAID_ACCEPTEX;
     WSAOVERLAPPED olOverlap;
+    WSAOVERLAPPED tempoverlap;
 
     SOCKET ListenSocket = INVALID_SOCKET;
     SOCKET AcceptSocket = INVALID_SOCKET;
@@ -40,10 +42,16 @@ int main()
     char lpOutputBuf[1024];
     int outBufLen = 1024;
     DWORD dwBytes;
+    DWORD recivedata = 0;
+
+
+    char m_receiveBuffer[1024];
 
     hostent* thisHost;
     char* ip;
     u_short port;
+    
+
 
     // Initialize Winsock
     iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
@@ -53,7 +61,7 @@ int main()
     }
 
     // Create a handle for the completion port
-    hCompPort = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, (u_long)0, 0);
+    hCompPort = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, (u_long)0, 1);
     if (hCompPort == NULL) {
         wprintf(L"CreateIoCompletionPort failed with error: %u\n",
             GetLastError());
@@ -71,7 +79,7 @@ int main()
     }
 
     // Associate the listening socket with the completion port
-    CreateIoCompletionPort((HANDLE)ListenSocket, hCompPort, (u_long)0, 0);
+    CreateIoCompletionPort((HANDLE)ListenSocket, hCompPort, (u_long)0, 1);
 
     //----------------------------------------
     // Bind the listening socket to the local IP address
@@ -126,6 +134,7 @@ int main()
         &dwBytes,
         NULL, 
         NULL);
+
     if (iResult == SOCKET_ERROR) {
         wprintf(L"WSAIoctl failed with error: %u\n", WSAGetLastError());
         closesocket(ListenSocket);
@@ -144,12 +153,28 @@ int main()
 
     // Empty our overlapped structure and accept connections.
     memset(&olOverlap, 0, sizeof(olOverlap));
+    ZeroMemory(&tempoverlap, sizeof(tempoverlap));
+    
+    char ignored[200];
+    DWORD ignored2 = 0;
 
-    bRetVal = lpfnAcceptEx(ListenSocket, AcceptSocket, lpOutputBuf,
-        outBufLen - ((sizeof(sockaddr_in) + 16) * 2),
-        sizeof(sockaddr_in) + 16, sizeof(sockaddr_in) + 16,
-        &dwBytes, &olOverlap);
+    //bRetVal = lpfnAcceptEx(ListenSocket, 
+    //    AcceptSocket, 
+    //    lpOutputBuf,
+    //    outBufLen - ((sizeof(sockaddr_in) + 16) * 2),
+    //    sizeof(sockaddr_in) + 16, sizeof(sockaddr_in) + 16,
+    //    &dwBytes, 
+    //    &olOverlap);
+    bRetVal = lpfnAcceptEx(ListenSocket, 
+        AcceptSocket, 
+        &ignored,
+        0,
+        50,
+        50,
+        &dwBytes, 
+        &olOverlap);
 
+  
 
     // if (bRetVal == FALSE) 기존 코드임 
     // 실행시 bRetVal 은 false 에러 처리가 책 예제의 경우 false 이면 true 가 되도록 구현되어 있음
@@ -164,7 +189,7 @@ int main()
     }
 
     // Associate the accept socket with the completion port
-    hCompPort2 = CreateIoCompletionPort((HANDLE)AcceptSocket, hCompPort, (u_long)0, 0);
+    hCompPort2 = CreateIoCompletionPort((HANDLE)AcceptSocket, hCompPort, (u_long)0, 1);
     // hCompPort2 should be hCompPort if this succeeds
     if (hCompPort2 == NULL) {
         wprintf(L"CreateIoCompletionPort associate failed with error: %u\n",
@@ -186,28 +211,32 @@ int main()
     {
         OVERLAPPED_ENTRY m_events[10];
 
-        BOOL r = GetQueuedCompletionStatusEx(hCompPort, m_events, 10, size, 100, TRUE);
+        //BOOL r = GetQueuedCompletionStatusEx(hCompPort, m_events, 10, size, 100, TRUE);
+        BOOL r = GetQueuedCompletionStatusEx(hCompPort, m_events, 10, (PULONG)&eventcount, 100, FALSE);
         //PULONG 으로 접근시 오는 값은 1임 결과에 따라 값을 초기화 해주는것으로 보임 false 이면 일단 실패
         // GetQueuedCompletionStatusEx 스펙상 기본이 1 인것으로 보임 
         if (!r)
         {
             eventcount = 0;
         }
-        else
-        {
-            //클라이언트 연결 확인
-            eventcount = (int)(*size);
-        }
+        //else
+        //{
+        //    //클라이언트 연결 확인
+        //    eventcount = (int)(*size);
+        //}
+
         int errcode = GetLastError();
         std::cout << "working... :" << eventcount << std::endl;
 
         for (size_t i = 0; i < eventcount; i++)
         {
             // 리슨 소켓일때
+            std::cout << "lpCompletionKey : " << m_events[i].lpCompletionKey << std::endl;
+
             if (m_events[i].lpCompletionKey == 0)
             {
                 std::cout << "Connect!!" << std::endl;
-                SOCKET m_accept = AcceptSocket;
+                //SOCKET m_accept = AcceptSocket;
 
                 sockaddr_in ignore1;
                 sockaddr_in ignore3;
@@ -223,25 +252,36 @@ int main()
                     (sockaddr**)&ignore3,
                     &ignore4);
 
-                int optresult = setsockopt(m_accept, SOL_SOCKET, SO_UPDATE_ACCEPT_CONTEXT,
+                int optresult = setsockopt(AcceptSocket, SOL_SOCKET, SO_UPDATE_ACCEPT_CONTEXT,
                     (char*)&ListenSocket, sizeof(ListenSocket));
 
                 if (optresult == 0)
                 {
-                    m_ConnectList.push_back(m_accept);
+                    
+                    //m_ConnectList.push_back(m_accept);
+                    WSABUF b;
+                    b.buf = m_receiveBuffer;
+                    b.len = 1024;
+
+                    //// overlapped I/O가 진행되는 동안 여기 값이 채워집니다.
+                    int recvresult = WSARecv(AcceptSocket, &b, 1, NULL, &recivedata, &tempoverlap, NULL);
+                    std::cout << "recde result :" << recvresult << std::endl;
+                    int wsarecverror = WSAGetLastError();
+                    std::cout << "error code " << wsarecverror << std::endl;
+
+
                 }
                 else
                 {
 
-                }
-                
+                }  
             }
             else
             {
                 std::cout << "recv" << std::endl;
-                CHAR* m_receiveBuffer[1024];
+               /* CHAR* m_receiveBuffer[1024];
 
-                WSABUF b;
+                WSABUF b;*/
                 //b.buf = m_receiveBuffer;
                 //b.len = MaxReceiveLength;
 
@@ -249,6 +289,8 @@ int main()
                 //m_readFlags = 0;
 
                 //WSARecv(m_accept, &b, 1, NULL, &m_readFlags, &m_readOverlappedStruct, NULL);
+
+                std::cout << "Socket recive Data :" << m_receiveBuffer << std::endl;
             }
         }
     }

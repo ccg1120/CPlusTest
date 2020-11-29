@@ -1,5 +1,6 @@
 ﻿  AcceptExTest.cpp
-C:\Project\Study\CPlusTest\Project\sampleTest\AcceptExTest.cpp(80,16): warning C4996: 'gethostbyname': Use getaddrinfo() or GetAddrInfoW() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
-C:\Project\Study\CPlusTest\Project\sampleTest\AcceptExTest.cpp(82,10): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
-C:\Project\Study\CPlusTest\Project\sampleTest\AcceptExTest.cpp(85,31): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+C:\Project\Study\CPlusTest\Project\sampleTest\AcceptExTest.cpp(88,16): warning C4996: 'gethostbyname': Use getaddrinfo() or GetAddrInfoW() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+C:\Project\Study\CPlusTest\Project\sampleTest\AcceptExTest.cpp(90,10): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+C:\Project\Study\CPlusTest\Project\sampleTest\AcceptExTest.cpp(93,31): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+C:\Project\Study\CPlusTest\Project\sampleTest\AcceptExTest.cpp(42,10): warning C4101: 'lpOutputBuf' :참조되지 않은 지역 변수입니다.
   sampleTest.vcxproj -> C:\Project\Study\CPlusTest\Project\x64\Debug\sampleTest.exe
